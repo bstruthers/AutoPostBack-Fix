@@ -1,0 +1,27 @@
+{
+  "name": "autopostback-fix",
+  "title": "ASP.NET AutoPostBack Fix",
+  "description": "Fixes keyboard usability issues with the ASP.NET DropDown control when the AutoPostBack property is set to true",
+  "version": "0.1.0",
+  "homepage": "https://github.com/bstruthers/AutoPostBack-Fix",
+  "author": {
+    "name": "Ben Struthers",
+    "email": "bstruthers@gmail.com",
+    "url": "http://bstruthers.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/bstruthers/AutoPostBack-Fix"
+  },
+  "bugs": "https://github.com/bstruthers/AutoPostBack-Fix/issues",
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/bstruthers/AutoPostBack-Fix/blob/master/LICENSE-MIT"
+    }
+  ],
+  "dependencies": {
+    "jquery": "*"
+  },
+  "keywords": []
+}
