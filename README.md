@@ -17,7 +17,7 @@ In your web page:
 ```html
 <script src="dist/autopostback-fix.min.js"></script>
 <script>
-    var list = document.getElementById('ddlList'),
+    var list       = document.getElementById('ddlList'),
         listHander = new bstruthers.AutoPostBackFix(list);
 </script>
 ```
