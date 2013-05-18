@@ -78,4 +78,7 @@ __jQuery:__ ```$('#ddlList').autoPostBackFix('destroy');```
 _(Coming soon)_
 
 ## Release History
-_(Nothing yet)_
+
+### 0.1.0 (May 17, 2013)
+
+- Initial version & commit to repository
