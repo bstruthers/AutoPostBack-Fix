@@ -75,7 +75,10 @@ __Vanilla JS__: ```listHander.destroy();```
 __jQuery:__ ```$('#ddlList').autoPostBackFix('destroy');```
 
 ## Examples
-_(Coming soon)_
+
+### Find all DropDownLists with the AutoPostBack property = true and apply the plugin.
+
+```$('select[onchange^=javascript\\:setTimeout]').autoPostBackFix();```
 
 ## Release History
 
