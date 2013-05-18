@@ -10,30 +10,24 @@ if (typeof bstruthers === 'undefined') { var bstruthers = {}; }
 
     namespace.AutoPostBackFix = (function (document) {
         var // Private
-            element,
-            form,
-            originalOnChange,
-            originalValue,
+            form, // Let form be shared across all instances
             
             BLUR     = 'blur',
             CLICK    = 'click',
             KEYPRESS = 'keypress',
             ONCHANGE = 'onchange',
 
-            listening,
             addEventListener,
             addEventListeners,
             removeEventListener,
             removeEventListeners,
             destroy,
 
-            // Event handlers
-            blurOrClick,
+            // Shared Event handlers
             keypress,
 
             // Public
             autoPostBackFix;
-
 
         // Private
         // ================================
@@ -54,43 +48,37 @@ if (typeof bstruthers === 'undefined') { var bstruthers = {}; }
         };
 
         addEventListeners = function () {
-            if (!listening) {
-                addEventListener(element, BLUR, blurOrClick);
-                addEventListener(element, CLICK, blurOrClick);
-                addEventListener(element, KEYPRESS, keypress);
+            if (!this.listening) {
+                addEventListener(this.element, BLUR, this.blurOrClick);
+                addEventListener(this.element, CLICK, this.blurOrClick);
+                addEventListener(this.element, KEYPRESS, keypress);
 
-                listening = true;
+                this.listening = true;
             }
         };
 
         removeEventListeners = function () {
-            if (listening) {
-                removeEventListener(element, BLUR, blurOrClick);
-                removeEventListener(element, CLICK, blurOrClick);
-                removeEventListener(element, KEYPRESS, keypress);
+            if (this.listening) {
+                removeEventListener(this.element, BLUR, this.blurOrClick);
+                removeEventListener(this.element, CLICK, this.blurOrClick);
+                removeEventListener(this.element, KEYPRESS, keypress);
 
-                listening = false;
+                this.listening = false;
             }
         };
 
         destroy = function () {
-            if (element.setAttribute) {
-                element.setAttribute(ONCHANGE, originalOnChange);
+            if (this.element.setAttribute) {
+                this.element.setAttribute(ONCHANGE, this.originalOnChange);
             } else {
-                element[ONCHANGE] = originalOnChange.value;
+                this.element[ONCHANGE] = this.originalOnChange.value;
             }
-            removeEventListeners();
+            removeEventListeners.apply(this);
         };
 
 
-        // Event handlers
+        // Global Event handlers
         // ================================
-        blurOrClick = function () {
-            if (element.value !== originalValue) {
-                form.submit();
-            }
-        };
-
         keypress = function (event) {
             var ev  = event || window.event,
                 key = ev.keyCode || ev.which || ev.charCode;
@@ -110,26 +98,36 @@ if (typeof bstruthers === 'undefined') { var bstruthers = {}; }
         // Public
         // ================================
         autoPostBackFix = function (elem) {
-            element = elem;
+            var that = this;
+
             form = document.forms[0]; // Assumed 1 form, this is for ASP.NET after all
 
+            that.element = elem;
+            
             // Store the current value
-            originalValue = element.value;
+            that.originalValue = that.element.value;
 
             // Remove the ASP.NET onchange
-            originalOnChange = element.getAttribute(ONCHANGE);
-            element.removeAttribute(ONCHANGE);
+            that.originalOnChange = that.element.getAttribute(ONCHANGE);
+            that.element.removeAttribute(ONCHANGE);
             
-            if (typeof element.getAttribute(ONCHANGE) === 'function') {
-                element[ONCHANGE] = null; // IE7 cannot remove event handlers http://www.quirksmode.org/dom/w3c_core.html#t118
+            if (typeof that.element.getAttribute(ONCHANGE) === 'function') {
+                that.element[ONCHANGE] = null; // IE7 cannot remove event handlers http://www.quirksmode.org/dom/w3c_core.html#t118
             }
 
+            // Private Event handler
+            this.blurOrClick = function () {
+                if (that.element.value !== that.originalValue && form) {
+                    form.submit();
+                }
+            };
+
             // Add our own event listeners
-            addEventListeners();
+            that.listening = false;
+            addEventListeners.apply(that);
         };
 
         autoPostBackFix.prototype = {
-            constructor: autoPostBackFix,
             disable: removeEventListeners,
             enable: addEventListeners,
             destroy: destroy
