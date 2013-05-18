@@ -11,6 +11,7 @@ module.exports = function(grunt) {
       '<%= pkg.homepage ? "* " + pkg.homepage + "\\n" : "" %>' +
       '* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>;' +
       ' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */\n',
+    jqueryPluginPrefix: 'jquery',
     // Task configuration.
     clean: {
       files: ['dist']
@@ -20,18 +21,24 @@ module.exports = function(grunt) {
         banner: '<%= banner %>',
         stripBanners: true
       },
-      dist: {
+      vanilla: {
         src: ['src/<%= pkg.name %>.js'],
         dest: 'dist/<%= pkg.name %>.js'
+      },
+      jquery: {
+        src: ['src/<%= pkg.name %>.js', 'src/jquery.plugin.js'],
+        dest: 'dist/<%=jqueryPluginPrefix%>.<%= pkg.name %>.js'
       },
     },
     uglify: {
       options: {
         banner: '<%= banner %>'
       },
-      dist: {
-        src: '<%= concat.dist.dest %>',
-        dest: 'dist/<%= pkg.name %>.min.js'
+      build: {
+        files: {
+          'dist/<%= pkg.name %>.min.js': '<%= concat.vanilla.dest %>',
+          'dist/<%=jqueryPluginPrefix%>.<%= pkg.name %>.min.js': '<%= concat.jquery.dest %>'
+        },
       },
     },
     qunit: {
