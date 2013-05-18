@@ -15,14 +15,6 @@
             this.handler = new AutoPostBackHandler(this.element[0]);
         },
 
-        destroy: function () {
-            // In jQuery UI 1.8, you must invoke the destroy method from the base widget
-            $.Widget.prototype.destroy.call(this);
-            // In jQuery UI 1.9 and above, you would define _destroy instead of destroy and not call the base method
-
-            this._destroy();
-        },
-        
         _destroy: function () {
             this.handler.destroy();
         },

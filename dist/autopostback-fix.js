@@ -1,4 +1,4 @@
-/*! ASP.NET AutoPostBack Fix - v0.1.0 - 2013-05-16
+/*! ASP.NET AutoPostBack Fix - v0.1.0 - 2013-05-17
 * https://github.com/bstruthers/AutoPostBack-Fix
 * Copyright (c) 2013 Ben Struthers; Licensed MIT */
 // Ensure namespace
