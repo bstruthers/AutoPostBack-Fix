@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <title>ASP.NET AutoPostBack Fix Examples - jQuery</title>
+
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+    <script src="../dist/jquery.autopostback-fix.js"></script>
+
+    <style>
+        div {
+            border-bottom: solid 1px #eee;
+            margin-bottom: 1em;
+            padding-bottom: 1em;
+        }
+        aside {
+            background: #fff;
+            border-left: solid 1px #ccc;
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+
+            width: 35em;
+        }
+        p {
+            font: 0.8em sans-serif;
+            margin: 0;
+            padding: 0.5em;
+
+            border-bottom: solid 1px #eee;
+        }
+        label, strong {
+            display: block;
+            max-width: 25em;
+        }
+    </style>
+</head>
+<body>
+    <form>
+        <section>
+            <div>
+                <label for="ddlOriginalState">Original State, onchange event fires with every keystroke that changes the value &amp; click:</label>
+                <select name="ctl00$pageContent$ddlOriginalState"  onchange="javascript:setTimeout('__doPostBack(\'ctl00$pageContent$ddlOriginalState\',\'\')', 0)" id="ddlOriginalState">
+                  <option value="Item1">Original Item1</option>
+                  <option value="Item2">Original Item2</option>
+                  <option value="Item3">Original Item3</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="ddlPluginApplied">Plugin applied, enabled.  Form will only submit when list loses focus (and value has changed from original state), option is clicked, or entry key is pressed:</label>
+                <strong>NOTE: since the form is not submitting, original value will always been Item1</strong>
+                <select name="ctl00$pageContent$ddlPluginApplied" onchange="javascript:setTimeout('__doPostBack(\'ctl00$pageContent$ddlPluginApplied\',\'\')', 0)" id="ddlPluginApplied">
+                  <option value="Item1">Applied Item1</option>
+                  <option value="Item2">Applied Item2</option>
+                  <option value="Item3">Applied Item3</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="ddlPluginDisabled">Plugin applied, disabled.  Form will not submit on any change.</label>
+                <select name="ctl00$pageContent$ddlPluginDisabled" onchange="javascript:setTimeout('__doPostBack(\'ctl00$pageContent$ddlPluginDisabled\',\'\')', 0)" id="ddlPluginDisabled">
+                  <option value="Item1">Disabled Item1</option>
+                  <option value="Item2">Disabled Item2</option>
+                  <option value="Item3">Disabled Item3</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="ddlPluginDestroyed">Plugin applied, destroyed.  Original onchange attribute is restored and event handlers removed:</label>
+                <select name="ctl00$pageContent$ddlPluginDestroyed" onchange="javascript:setTimeout('__doPostBack(\'ctl00$pageContent$ddlPluginDestroyed\',\'\')', 0)" id="ddlPluginDestroyed">
+                  <option value="Item1">Destroyed Item1</option>
+                  <option value="Item2">Destroyed Item2</option>
+                  <option value="Item3">Destroyed Item3</option>
+                </select>
+            </div>
+        </section>
+
+        <aside id="log">
+
+        </aside>
+    </form>
+
+    <script>
+        // Create function writing feedback to the screen and console
+        var logCount = 0;
+        var writeLog = function (entry) {
+            var log = document.getElementById('log');
+
+            logCount++;
+            log.innerHTML += '<p>' + logCount + ': ' + entry + '</p>'
+
+            console.log(entry);
+        };
+
+        // Mimic the ASP.NET doPostBack function
+        var __doPostBack = function (clientId) {
+            writeLog('ASP.NET PostBack triggered; clientId = ' + clientId);
+            document.forms[0].submit();
+        };
+
+        // Prevent the form from submitting
+        document.forms[0].submit = function () {
+            writeLog('Form Submitted');
+            return false;
+        };
+
+        writeLog('Focus set to ddlOriginalState');
+        document.getElementById('ddlOriginalState').focus();
+
+        writeLog('Attaching Plugin to ddlPluginApplied, ddlPluginDisabled, ddlPluginDestroyed');
+        $('#ddlPluginApplied, #ddlPluginDisabled, #ddlPluginDestroyed').autoPostBackFix();
+
+        writeLog('Disabling ddlPluginDisabled');
+        $('#ddlPluginDisabled').autoPostBackFix('disable');
+
+        writeLog('Destroying ddlPluginDestroyed');
+        $('#ddlPluginDestroyed').autoPostBackFix('destroy');
+    </script>
+</body>
+</html>
