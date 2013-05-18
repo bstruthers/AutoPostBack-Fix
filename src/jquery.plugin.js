@@ -6,13 +6,13 @@
  * Licensed under the MIT license.
  */
  
-(function ($, AutoPostBackHandler) {
+(function ($, AutoPostBackFix) {
     'use strict';
     
-    $.widget('bstruthers.autoPostBack', {
+    $.widget('bstruthers.autoPostBackFix', {
         _create: function () {
             // Create the handler
-            this.handler = new AutoPostBackHandler(this.element[0]);
+            this.handler = new AutoPostBackFix(this.element[0]);
         },
 
         _destroy: function () {
@@ -27,4 +27,4 @@
             this.handler.disable();
         }
     });
-} (jQuery, bstruthers.AutoPostBackHandler));
+} (jQuery, bstruthers.AutoPostBackFix));

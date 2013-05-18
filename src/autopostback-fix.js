@@ -13,7 +13,7 @@ if (typeof bstruthers === 'undefined') { var bstruthers = {}; }
     'use strict';
     namespace = namespace || window;
 
-    namespace.AutoPostBackHandler = (function (document) {
+    namespace.AutoPostBackFix = (function (document) {
         var // Private
             element,
             form,
@@ -37,7 +37,7 @@ if (typeof bstruthers === 'undefined') { var bstruthers = {}; }
             keypress,
 
             // Public
-            autoPostBackHandler;
+            autoPostBackFix;
 
 
         // Private
@@ -114,7 +114,7 @@ if (typeof bstruthers === 'undefined') { var bstruthers = {}; }
 
         // Public
         // ================================
-        autoPostBackHandler = function (elem) {
+        autoPostBackFix = function (elem) {
             element = elem;
             form = document.forms[0]; // Assumed 1 form, this is for ASP.NET after all
 
@@ -133,13 +133,13 @@ if (typeof bstruthers === 'undefined') { var bstruthers = {}; }
             addEventListeners();
         };
 
-        autoPostBackHandler.prototype = {
-            constructor: autoPostBackHandler,
+        autoPostBackFix.prototype = {
+            constructor: autoPostBackFix,
             disable: removeEventListeners,
             enable: addEventListeners,
             destroy: destroy
         };
 
-        return autoPostBackHandler;
+        return autoPostBackFix;
     } (document));
 } (document, bstruthers));
