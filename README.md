@@ -7,10 +7,10 @@ Fixes keyboard usability issues with the ASP.NET DropDown control when the AutoP
 AutoPostBack Fix supports both Vanilla JS and jQuery.
 
 ### Vanilla JS
-Download the [production version][min] or the [development version][max].
+Download the [production version][vanilla-min] or the [development version][vanilla-max].
 
-[min]: https://raw.github.com/bstruthers/AutoPostBack-Fix/master/dist/autopostback-fix.min.js
-[max]: https://raw.github.com/bstruthers/AutoPostBack-Fix/master/dist/autopostback-fix.js
+[vanilla-min]: https://raw.github.com/bstruthers/AutoPostBack-Fix/master/dist/autopostback-fix.min.js
+[vanilla-max]: https://raw.github.com/bstruthers/AutoPostBack-Fix/master/dist/autopostback-fix.js
 
 In your web page:
 
@@ -23,10 +23,10 @@ In your web page:
 ```
 
 ### jQuery Plugin
-Download the [production version][min] or the [development version][max].
+Download the [production version][jquery-min] or the [development version][jquery-max].
 
-[min]: https://raw.github.com/bstruthers/AutoPostBack-Fix/master/dist/jquery.autopostback-fix.min.js
-[max]: https://raw.github.com/bstruthers/AutoPostBack-Fix/master/dist/jquery.autopostback-fix.js
+[jquery-min]: https://raw.github.com/bstruthers/AutoPostBack-Fix/master/dist/jquery.autopostback-fix.min.js
+[jquery-max]: https://raw.github.com/bstruthers/AutoPostBack-Fix/master/dist/jquery.autopostback-fix.js
 
 In your web page:
 
