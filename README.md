@@ -41,7 +41,38 @@ jQuery(function($) {
 ```
 
 ## Documentation
-_(Coming soon)_
+
+### constructor
+
+Removes the onchange attribute so keyboard navigation is possible and attaches event handlers that submit the form when the value has changed via clicking, blur, or the enter key is pressed.
+
+__Vanilla JS__: ```listHander = new bstruthers.AutoPostBackFix(list);```
+
+__jQuery:__ ```$('#ddlList').autoPostBackFix();```
+
+### enable()
+
+Attaches event handlers if they're not already attached.
+
+__Vanilla JS__: ```listHander.enable();```
+
+__jQuery:__ ```$('#ddlList').autoPostBackFix('enable');```
+
+### disable()
+
+Removes added event handlers.
+
+__Vanilla JS__: ```listHander.disable();```
+
+__jQuery:__ ```$('#ddlList').autoPostBackFix('disable');```
+
+### destroy()
+
+Removes added event handlers and restores original onclick attribute.
+
+__Vanilla JS__: ```listHander.destroy();```
+
+__jQuery:__ ```$('#ddlList').autoPostBackFix('destroy');```
 
 ## Examples
 _(Coming soon)_
